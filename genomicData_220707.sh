@@ -1,4 +1,16 @@
 #!/bin/bash
+#
+#SBATCH --partition=normal
+#SBATCH --ntasks=1
+#SBATCH --mem=1024
+#SBATCH --output=humandata_%J_stdout.txt
+#SBATCH --error=humandata_%J_stderr.txt
+#SBATCH --time=12:00:00
+#SBATCH --job-name=humandata
+#SBATCH --mail-user=lakshmibhavaniuppaluri-1@ou.edu
+#SBATCH --mail-type=ALL
+#SBATCH --chdir=/home/bhavani/RNAseq-analysis/
+#
 
 # BASH script to retrieve genomic data for project 220707
 # usage: bash genomicData_220707.sh outputsPath
