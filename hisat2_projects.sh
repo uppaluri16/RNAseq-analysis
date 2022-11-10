@@ -1,51 +1,46 @@
 #!/bin/bash
-#$ -M ebrooks5@nd.edu
-#$ -m abe
-#$ -r n
-#$ -N hisat2_projects_jobOutput
-#$ -pe smp 8
-#Script to perform hisat2 alignment of trimmed paired end reads
-#Usage: qsub hisat2_projects.sh inputsFile
-#Usage Ex: qsub hisat2_projects.sh inputPaths_yoon_adipocyte_July2022.txt
-#Usage Ex: qsub hisat2_projects.sh inputPaths_yoon_junkrat_July2022.txt
+#
+#SBATCH --partition=normal
+#SBATCH --ntasks=8
+#SBATCH --mem=1024
+#SBATCH --output=trim_%J_stdout.txt
+#SBATCH --error=trim_%J_stderr.txt
+#SBATCH --time=12:00:00
+#SBATCH --job-name=trim
+#SBATCH --mail-user=lakshmibhavaniuppaluri-1@ou.edu
+#SBATCH --mail-type=ALL
+#SBATCH --chdir=/home/bhavani/RNAseq-analysis
+#
 
-#Required modules for ND CRC servers
-module load bio
+# script to perform trimmomatic trimming of paired end reads
+# usage: sbatch trimmomatic_trainingPrompts.sh readPath outputsPath
+# usage Ex: sbatch trimmomatic_trainingPrompts.sh /scratch/bhavani/GBCF_Data/Adipocyte/220705_Yoon_Adipocyte_Pool2_RNAseq /scratch/bhavani/project1/adipocyte
+# usage Ex: sbatch trimmomatic_trainingPrompts.sh /afs/crc.nd.edu/group/genomics/R2D2/220707_Yoon_Jurkat_Pool1_RNAseq /scratch365/ebrooks5/yoon_July2022/220707_Yoon_Jurkat_Pool1_RNAseq
 
-#Retrieve input argument of a inputs file
-inputsFile=$1
+# required software for OSCER
+module load HISAT2
+module load SAMtools
 
-#Retrieve genome reference absolute path for alignment
-ref=$(grep "genomeReference:" ../"InputData/"$inputsFile | tr -d " " | sed "s/genomeReference://g")
-#Retrieve paired reads absolute path for alignment
-readPath=$(grep "pairedReads:" ../"InputData/"$inputsFile | tr -d " " | sed "s/pairedReads://g")
-#Retrieve analysis outputs absolute path
-outputsPath=$(grep "outputs:" ../"InputData/"$inputsFile | tr -d " " | sed "s/outputs://g")
+# retrieve paired reads absolute path for alignment
+inputsPath="$1"
 
-#Make a new directory for project analysis
-projectDir=$(basename $readPath)
-outputsPath=$outputsPath"/"$projectDir
+# retrieve analysis outputs absolute path
+outputsPath="$2"
 
-#Make an outputs directory for analysis
-anOut=$outputsPath"/aligned"
+#retrieve genome
+ref="$3"
+
+# make a new directory for project analysis files
+mkdir $outputsPath
+
+# name of a new directory for outputs of this analysis stage
+anOut=$outputsPath"/alined"
+
+# make the new outputs directory
 mkdir $anOut
-#Check if the folder already exists
-if [ $? -ne 0 ]; then
-	echo "The $anOut directory already exsists... please remove before proceeding."
-	exit 1
-fi
-#Move to the outputs directory
+
+# move to the outputs directory
 cd $anOut
-
-#Name output file of inputs
-inputOutFile=$outputsPath"/pipeline_summary.txt"
-versionFile=$outputsPath"/version_summary.txt"
-#Add software versions to outputs
-hisat2 --version >> $versionFile
-samtools --version >> $versionFile
-
-#Set trimmed reads absolute path
-inputsPath=$outputsPath"/trimmed"
 
 #Create build output directory for Hisat reference
 buildOut="build"
@@ -60,7 +55,6 @@ refNoPath=$(echo $refNoEx | sed 's/\.fa//g')
 #Begin hisat2 build
 echo "Beginning hisat2 build... "
 hisat2-build -p 8 -f "$buildOut"/"$refNoEx" "$buildOut"/"$refNoPath"
-echo hisat2-build -p 8 -f "$buildOut"/"$refNoEx" "$buildOut"/"$refNoPath" >> $inputOutFile
 echo "hisat2 build complete!"
 
 #Loop through all forward and reverse paired reads and run Hisat2 on each pair
@@ -77,15 +71,10 @@ for f1 in "$inputsPath"/*pForward.fq.gz; do
 	echo "Processing $curSampleNoPath"
 	#Run hisat2 with default settings
 	hisat2 -p 8 -q -x $buildOut"/"$refNoEx -1 $f1 -2 $curSample"_pReverse.fq.gz" -S $curSampleNoPath"/accepted_hits.sam" --summary-file $curSampleNoPath"/alignedSummary.txt"
-	#Add sample and hisat2 run inputs to output summary file
-	echo $curSampleNoPath >> $inputOutFile
-	echo "hisat2 -p 8 -q -x "$buildOut"/"$refNoEx" -1 "$f1" -2 "$curSample"_pReverse.fq.gz -S "$curSampleNoPath"/accepted_hits.sam --summary-file "$curSampleNoPath"/alignedSummary.txt" >> "$inputOutFile"
 	#Convert output sam files to bam format for downstream analysis
 	samtools view -@ 8 -bS $curSampleNoPath"/accepted_hits.sam" > $curSampleNoPath"/accepted_hits.bam"
 	#Remove the now converted .sam file
 	rm $curSampleNoPath"/accepted_hits.sam"
-	#Add samtools run inputs to output summary file
-	echo "samtools view -@ 8 -bS "$curSampleNoPath"/accepted_hits.sam > "$curSampleNoPath"/accepted_hits.bam" >> $inputOutFile
 	#Print status message
 	echo "Processed!"
 done
