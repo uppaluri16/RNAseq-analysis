@@ -3,19 +3,18 @@
 #SBATCH --partition=normal
 #SBATCH --ntasks=8
 #SBATCH --mem=1024
-#SBATCH --output=trim_%J_stdout.txt
-#SBATCH --error=trim_%J_stderr.txt
+#SBATCH --output=align_%J_stdout.txt
+#SBATCH --error=align_%J_stderr.txt
 #SBATCH --time=12:00:00
-#SBATCH --job-name=trim
+#SBATCH --job-name=align
 #SBATCH --mail-user=lakshmibhavaniuppaluri-1@ou.edu
 #SBATCH --mail-type=ALL
 #SBATCH --chdir=/home/bhavani/RNAseq-analysis
 #
 
 # script to perform trimmomatic trimming of paired end reads
-# usage: sbatch trimmomatic_trainingPrompts.sh readPath outputsPath
-# usage Ex: sbatch trimmomatic_trainingPrompts.sh /scratch/bhavani/GBCF_Data/Adipocyte/220705_Yoon_Adipocyte_Pool2_RNAseq /scratch/bhavani/project1/adipocyte
-# usage Ex: sbatch trimmomatic_trainingPrompts.sh /afs/crc.nd.edu/group/genomics/R2D2/220707_Yoon_Jurkat_Pool1_RNAseq /scratch365/ebrooks5/yoon_July2022/220707_Yoon_Jurkat_Pool1_RNAseq
+# usage: sbatch hisat2_projects.sh readPath outputsPath
+# usage Ex: sbatch hisat2_projects.sh /scratch/bhavani/GBCF_Data/Adipocyte/220705_Yoon_Adipocyte_Pool2_RNAseq /scratch/bhavani/project1/adipocyte /scratch/bhavani/project1/adipocyte/Mus_musculus.GRCm39.dna.primary_assembly.fa.gz
 
 # required software for OSCER
 module load HISAT2
