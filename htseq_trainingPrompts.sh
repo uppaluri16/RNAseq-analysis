@@ -2,7 +2,7 @@
 ## job script header that requests 1 thread
 #
 #SBATCH --partition=normal
-#SBATCH --ntasks=8
+#SBATCH --ntasks=1
 #SBATCH --mem=1024
 #SBATCH --output=count_%J_stdout.txt
 #SBATCH --error=count_%J_stderr.txt
@@ -14,7 +14,7 @@
 #
 # script to run htseq-count on trimmed, aligned, and name sorted paired end reads
 # usage: sbatch htseq_trainingPrompts.sh inputsFile outputsFile genomeFeatures
-# usage Ex: sbatch htseq_trainingPrompts.sh /scratch/bhavani/Adipocyte/sorted /scratch/bhavani/Adipocyte /scratch/bhavani/Adipocyte/....mus
+# usage Ex: sbatch htseq_trainingPrompts.sh /scratch/bhavani/Adipocyte/sorted /scratch/bhavani/Adipocyte /scratch/bhavani/Adipocyte/Mus_musculus.GRCm39.108.gtf
 # usage Ex: sbatch htseq_trainingPrompts.sh /YOUR/PATH/Jurkat/sorted /YOUR/PATH/Jurkat /YOUR/PATH/Jurkat/....gtf
 
 # required software for OSCER
