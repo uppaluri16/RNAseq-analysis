@@ -1,65 +1,69 @@
 #!/bin/bash
 ## job script header that requests 1 thread
-
+#
+#SBATCH --partition=normal
+#SBATCH --ntasks=8
+#SBATCH --mem=1024
+#SBATCH --output=count_%J_stdout.txt
+#SBATCH --error=count_%J_stderr.txt
+#SBATCH --time=12:00:00
+#SBATCH --job-name=count
+#SBATCH --mail-user=lakshmibhavaniuppaluri-1@ou.edu
+#SBATCH --mail-type=ALL
+#SBATCH --chdir=/home/bhavani/RNAseq-analysis
+#
 # script to run htseq-count on trimmed, aligned, and name sorted paired end reads
 # usage: sbatch htseq_trainingPrompts.sh inputsFile outputsFile genomeFeatures
-# usage Ex: sbatch htseq_trainingPrompts.sh /YOUR/PATH/Adipocyte/sorted /YOUR/PATH/Adipocyte /YOUR/PATH/Adipocyte/....gtf
+# usage Ex: sbatch htseq_trainingPrompts.sh /scratch/bhavani/Adipocyte/sorted /scratch/bhavani/Adipocyte /scratch/bhavani/Adipocyte/....mus
 # usage Ex: sbatch htseq_trainingPrompts.sh /YOUR/PATH/Jurkat/sorted /YOUR/PATH/Jurkat /YOUR/PATH/Jurkat/....gtf
 
 # required software for OSCER
-
+module load HTSeq
 
 # retrieve paired reads absolute path for alignment
-
+inputsPath="$1"
 
 # retrieve analysis outputs absolute path
+outputsPath="$2"
 
-
-# retrieve reference genome absolute path
-
+# retrieve genome features absolute path
+genomeFile="$3"
 
 # make a new directory for project analysis files
-
-
-# name of a new directory for outputs of this analysis stage
-
+anOut=$outputsPath"/counted"
 
 # make the new outputs directory
-
+mkdir $anOut
 
 # move to the outputs directory
-
+cd $anOut
 
 # loop through all sorted forward and reverse paired reads and store the file locations in an array
-
+for f1 in "$inputsPath"/*/; do
 
 	# name of aligned file
-
+	curAlignedSample=$f1"accepted_hits.bam"
 
 	# trim file path from current folder name
-
+	curSampleNoPath=$(basename $f1)
 
 	# create directory for current sample outputs
-
-
-	# output current sample name to summary file
-
-
+	mkdir $curSampleNoPath
+	
 	# output status message
-
+	echo "Sample $curSampleNoPath is being name counted..."
 
 	# count reads using htseq-count
-
+	htseq-count -f bam -s no -t gene $curAlignedSample $genomeFile > $curSampleNoPath"/counts.txt"
 
 	# output status message
-
+	echo "Sample $curSampleNoPath has been name counted!"
 
 # end loop
-
+done
 
 #clean up
-
+#rm -r $inputsPath
 
 # print status message
-
-
+echo "Analysis complete!"
