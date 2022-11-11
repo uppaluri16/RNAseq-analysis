@@ -28,7 +28,7 @@ readPath="$1"
 outputsPath="$2"
 
 # retrieve adapter absolute path for alignment
-adapterPath="/opt/oscer/software/Trimmomatic/0.39-Java-1.8.0_191/adapters/TruSeq3-PE.fa"
+adapterPath="/opt/oscer/software/Trimmomatic/0.39-Java-1.8.0_191/adapters/TruSeq3-PE.fa:2:30:10"
 
 # make a new directory for project analysis files
 mkdir $outputsPath
