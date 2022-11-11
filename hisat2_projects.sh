@@ -80,7 +80,7 @@ done
 
 #Clean up
 rm -r "build"
-rm -r $inputsPath
+#rm -r $inputsPath
 
 #Print status message
 echo "Analysis complete!"
