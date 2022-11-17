@@ -14,7 +14,7 @@
 
 # script to perform trimmomatic trimming of paired end reads
 # usage: sbatch hisat2_projects.sh readPath outputsPath
-# usage Ex: sbatch hisat2_projects.sh /scratch/bhavani/GBCF_Data/Adipocyte/220705_Yoon_Adipocyte_Pool2_RNAseq /scratch/bhavani/project1/adipocyte /scratch/bhavani/project1/adipocyte/Mus_musculus.GRCm39.dna.primary_assembly.fa.gz
+# usage Ex: sbatch hisat2_projects.sh /scratch/bhavani/GBCF_Data/Adipocyte/220705_Yoon_Adipocyte_Pool2_RNAseq /scratch/bhavani/project1/Adipocyte /scratch/bhavani/project1/Adipocyte/Mus_musculus.GRCm39.dna.primary_assembly.fa
 
 # required software for OSCER
 module load HISAT2
