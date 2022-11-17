@@ -15,7 +15,7 @@
 
 # script to perform fastqc quality control of paired end reads
 # usage: sbatch fastqc_trainingPrompts.sh readPath outputsPath
-# usage Ex: sbatch fastqc_trainingPrompts.sh /scratch/bhavani/GBCF_Data/Adipocyte/220705_Yoon_Adipocyte_Pool2_RNAseq /scratch/bhavani/project1/adipocyte
+# usage Ex: sbatch fastqc_trainingPrompts.sh /scratch/bhavani/GBCF_Data/Adipocyte/220705_Yoon_Adipocyte_Pool2_RNAseq /scratch/bhavani/project1/Adipocyte
 
 
 # required software for OSCER servers
