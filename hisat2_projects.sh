@@ -14,19 +14,20 @@
 
 # script to perform trimmomatic trimming of paired end reads
 # usage: sbatch hisat2_projects.sh readPath outputsPath
-# usage Ex: sbatch hisat2_projects.sh /scratch/bhavani/GBCF_Data/Adipocyte/220705_Yoon_Adipocyte_Pool2_RNAseq /scratch/bhavani/project1/Adipocyte /scratch/bhavani/project1/Adipocyte/Mus_musculus.GRCm39.dna.primary_assembly.fa
+# usage Ex: sbatch hisat2_projects.sh /scratch/bhavani/project1/Adipocyte /scratch/bhavani/project1/Adipocyte/Mus_musculus.GRCm39.dna.primary_assembly.fa
 
 # required software for OSCER
 module load HISAT2
 
 # retrieve paired reads absolute path for alignment
 inputsPath="$1"
+inputsPath=$inputsPath"/trimmed"
 
 # retrieve analysis outputs absolute path
-outputsPath="$2"
+outputsPath="$1"
 
 #retrieve genome
-ref="$3"
+ref="$2"
 
 # make a new directory for project analysis files
 mkdir $outputsPath
