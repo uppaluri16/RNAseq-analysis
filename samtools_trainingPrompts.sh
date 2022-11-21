@@ -69,7 +69,7 @@ for f1 in "$inputsPath"/*/; do
 done
 
 # clean up and remove extra files
-rm -r $inputsPath
+# rm -r $inputsPath
 
 # print final status message
 echo "Analysis complete!"
