@@ -18,7 +18,7 @@
 # usage Ex: sbatch samtools_trainingPrompts.sh /YOUR/PATH/jurkat/aligned /YOUR/PATH/jurkat
 
 # required software for OSCER
-module load SAMtools
+module load SAMtools/1.9-foss-2018b
 
 # retrieve paired reads absolute path for alignment
 inputsPath="$1"
