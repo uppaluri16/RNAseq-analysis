@@ -19,7 +19,7 @@
 
 # required software for OSCER
 module load HTSeq/0.6.1p1-intel-2016a-Python-2.7.10
-pip install pysam --upgrade
+module load Pysam 
 
 # retrieve paired reads absolute path for alignment
 inputsPath="$1"
