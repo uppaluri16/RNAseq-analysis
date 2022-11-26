@@ -55,7 +55,7 @@ for f1 in "$inputsPath"/*/; do
 	echo "Sample $curSampleNoPath is being name counted..."
 
 	# count reads using htseq-count
-	htseq-count -f bam -s no -t gene $curAlignedSample $genomeFile > $curSampleNoPath"/counts.txt"
+	python -m htseq-count -f bam -s no -t gene $curAlignedSample $genomeFile > $curSampleNoPath"/counts.txt"
 
 	# output status message
 	echo "Sample $curSampleNoPath has been name counted!"
