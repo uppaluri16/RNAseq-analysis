@@ -18,7 +18,7 @@
 # usage Ex: sbatch htseq_trainingPrompts.sh /YOUR/PATH/Jurkat/sorted /YOUR/PATH/Jurkat /YOUR/PATH/Jurkat/....gtf
 
 # required software for OSCER
-module load HTSeq
+module load HTSeq/0.6.1p1-intel-2016a-Python-2.7.10
 
 # retrieve paired reads absolute path for alignment
 inputsPath="$1"
