@@ -19,7 +19,7 @@
 
 # required software for OSCER
 module load HTSeq
-
+module load Pysam
 # retrieve paired reads absolute path for alignment
 inputsPath="$1"
 
