@@ -19,6 +19,7 @@
 
 # required software for OSCER
 module load HTSeq/0.6.1p1-intel-2016a-Python-2.7.10
+module load GCC/7.3.0-2.30
 module load Pysam 
 module load numpy
 
