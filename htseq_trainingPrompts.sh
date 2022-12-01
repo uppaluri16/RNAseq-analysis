@@ -6,7 +6,7 @@
 #SBATCH --mem=1024
 #SBATCH --output=count_%J_stdout.txt
 #SBATCH --error=count_%J_stderr.txt
-#SBATCH --time=12:00:00
+#SBATCH --time=48:00:00
 #SBATCH --job-name=count
 #SBATCH --mail-user=lakshmibhavaniuppaluri-1@ou.edu
 #SBATCH --mail-type=ALL
