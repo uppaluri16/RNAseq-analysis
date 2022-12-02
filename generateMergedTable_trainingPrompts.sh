@@ -17,6 +17,8 @@
 # usage ex: bash generateMergedTable_trainingPrompts.sh /scratch/bhavani/project1/Adipocyte/counted /scratch/bhavani/project1/Adipocyte
 # usage ex: bash generateMergedTable_trainingPrompts.sh /YOUR/PATH/Jurkat/counted /YOUR/PATH/Jurkat
 
+module load Python
+
 # retrieve paired reads absolute path for alignment
 inputsPath="$1"
 
