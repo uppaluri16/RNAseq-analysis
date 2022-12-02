@@ -26,13 +26,13 @@ inputsPath="$1"
 outputsPath="$2"
 
 # make a new directory for project analysis files
-anOut=$outputsPath"/merged"
+#anOut=$outputsPath"/merged"
 
 # make the new outputs directory
-mkdir $anOut
+#mkdir $anOut
 
 # move to the outputs directory
-cd $anOut
+#cd $anOut
 
 # name tmp guide file for merging
 tmpGuide=$inputsPath"/tmp_guideFile.txt"
