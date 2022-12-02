@@ -59,16 +59,16 @@ python merge_tables.py $tmpGuide
 path=$(echo $inputsPath | sed "s/\///g")
 
 # remove file paths from sample tags
-cat merged_counts.txt | sed 's/\///g' | sed "s/$path//g" > $inputsPath"/"$projectDir"_merged_counts.txt"
+cat merged_counts.txt | sed 's/\///g' | sed "s/$path//g" > $inputsPath"/merged_counts.txt"
 
 # clean up sample names for downstream analysis with R
-header=$(head -1 $inputsPath"/"$projectDir"_merged_counts.txt" | tr '\t' '\n' | sed "s/\-/\_/g" | sed "s/Jurkat.*\_S//g" | sed "s/3T3.*\_S//g" | sed "s/Undetermined\_S//g" | awk '{$1 = sprintf("S%02d", $1); print}' | tr '\n' '\t' | cut -d$'\t' -f2-)
+header=$(head -1 $inputsPath"/merged_counts.txt" | tr '\t' '\n' | sed "s/\-/\_/g" | sed "s/Jurkat.*\_S//g" | sed "s/3T3.*\_S//g" | sed "s/Undetermined\_S//g" | awk '{$1 = sprintf("S%02d", $1); print}' | tr '\n' '\t' | cut -d$'\t' -f2-)
 
 # add the header to the final re-formatted merged counts file
-echo -e "gene\t"$header | sed 's/\t*$//' > $inputsPath"/"$projectDir"_merged_counts_formatted.txt"
+echo -e "gene\t"$header | sed 's/\t*$//' > $inputsPath"/merged_counts_formatted.txt"
 
 # add the count data to the final re-formatted merged counts file
-tail -n +2 $inputsPath"/"$projectDir"_merged_counts.txt" >> $inputsPath"/"$projectDir"_merged_counts_formatted.txt"
+tail -n +2 $inputsPath"/merged_counts.txt" >> $inputsPath"/merged_counts_formatted.txt"
 
 # clean up and remove the tmp guide file
 rm $tmpGuide
