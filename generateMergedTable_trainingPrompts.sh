@@ -50,7 +50,7 @@ for f1 in "$inputsPath"/*/; do
 done
 
 # move to location of merge_tagles.py script in the util director
-cd ../util
+cd util
 
 # merge gene counts using the generated guide file and merge_tables.py
 python merge_tables.py $tmpGuide
